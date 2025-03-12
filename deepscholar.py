@@ -3,7 +3,9 @@
 # WEISER Research Group, National University of Singapore
 # This code is released under license BSD 3-Clause
 
+# Import necessary modules for using local LLM
 import localllm
+import searchgoogle
 
 import os
 
@@ -15,34 +17,36 @@ import pypdf
 # import openai 
 import ollama
 
-# Import necessary libraries for web scraping
-from googlesearch import search
+
 
 # Example Usage
+# if __name__ == "__main__":
+#     # Get list of available LLM models from Ollama
+#     available_models = localllm.get_local_available_models()
+#     print("Available Models:", available_models)
+#
+#     # Attempt to set specific LLM model, with error handling
+#     # Default is "mistral" if specified model not available
+#     try:
+#         localllm.set_local_model("deepseek-r1:14b")  # Change model name here
+#     except ValueError as e:
+#         print(e)  # Print error if model not found
+#
+#     # Display currently active model
+#     print("Using Model:", localllm.DEFAULT_MODEL)
+#
+#     # Send test query to LLM model and print response
+#     # Simple query to verify model is working
+#     response = localllm.query_local_model("What is artificial intelligence?")
+#     print("\nOllama Response:\n", response)
+
 if __name__ == "__main__":
-    available_models = localllm.get_local_available_models()
-    print("Available Models:", available_models)
+    # Example: Change this to your required search query
+    searchgoogle.set_google_search_query("Latest trends in AI", 10)
+    
+    results = searchgoogle.perform_google_search()
 
-    # Set a specific model (User-defined)
-    try:
-        localllm.set_local_model("deepseek-r1:14b")  # Change model name here
-    except ValueError as e:
-        print(e)
-
-    print("Using Model:", localllm.DEFAULT_MODEL)
-
-    # Query Ollama
-    response = localllm.query_local_model("What is artificial intelligence?")
-    print("\nOllama Response:\n", response)
-
-
-query = "Best Python web scraping libraries"
-num_results = 25  # Number of search results to fetch
-
-# Get search results
-for i, result in enumerate(search(query, num_results=num_results, lang="en"), start=1):
-    print(f"{i}. {result}")
-
-# Import necessary libraries for web scraping
+    for res in results:
+        print(f"{res['rank']}. {res['link']}")
 
 

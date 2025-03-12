@@ -21,6 +21,7 @@ def set_google_search_query(query_model, nos):
 
 def perform_google_search():
     """Perform Google search and extract links with brief descriptions."""
+
     search_results = []
 
     for i, result in enumerate(search(QUERY, num_results=NUM_RESULTS, lang="en"), start=1):
